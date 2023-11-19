@@ -9,6 +9,7 @@ class NavigationBar(BasePage):
         self.__searchButtonLocator = (By.ID, "nav-search-submit-button")
         self.__cartButtonLocator = (By.ID, "nav-cart-text-container")
 
+
     def fill_search_field(self, text):
         searchFieldElement = self._find_element(self.__searchFieldLocator)
         self._fill_field(searchFieldElement, text)
@@ -20,3 +21,5 @@ class NavigationBar(BasePage):
     def click_to_cart_button(self):
         cartButtonElement = self._find_element(self.__cartButtonLocator)
         self._click_to_element(cartButtonElement)
+
+

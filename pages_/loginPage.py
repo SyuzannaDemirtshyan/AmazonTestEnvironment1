@@ -10,6 +10,8 @@ class LoginPage(BasePage):
         self.__continueButtonLocator = (By.ID, "continue")
         self.__passwordFieldLocator = (By.ID, "ap_password")
         self.__signInButtonLocator = (By.ID, "signInSubmit")
+        self.__incorrectPasswordErrorMessageTextLocator = (By.CLASS_NAME, "a-list-item")
+        self.__incorrectEmailErrorMessageTextLocator = (By.CLASS_NAME, "a-list-item")
 
     def fill_username_field(self, username):
         usernameFieldElement = self._find_element(self.__usernameFieldLocator)
@@ -32,3 +34,11 @@ class LoginPage(BasePage):
         if self._get_text(continueButtonElement) != "continue":
             print("Error: Wrong continue button text")
             exit(2)
+
+    def get_incorrect_password_error_message_text(self):
+        incorrectPasswordErrorMessageTextElement = self._find_element(self.__incorrectPasswordErrorMessageTextLocator)
+        return self._get_text(incorrectPasswordErrorMessageTextElement)
+
+    def get_incorrect_email_error_message_text(self):
+        incorrectEmailErrorMessageTextElement = self._find_element(self.__incorrectEmailErrorMessageTextLocator)
+        return self._get_text(incorrectEmailErrorMessageTextElement)
