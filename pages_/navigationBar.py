@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages_.basePage import BasePage
+from common_.utilities_.customLogger import logger
 
 
 class NavigationBar(BasePage):
@@ -8,7 +9,7 @@ class NavigationBar(BasePage):
         self.__searchFieldLocator = (By.ID, "twotabsearchtextbox")
         self.__searchButtonLocator = (By.ID, "nav-search-submit-button")
         self.__cartButtonLocator = (By.ID, "nav-cart-text-container")
-
+        self.__cartCountLocator = (By.ID, "nav-cart-count")
 
     def fill_search_field(self, text):
         searchFieldElement = self._find_element(self.__searchFieldLocator)
@@ -22,4 +23,14 @@ class NavigationBar(BasePage):
         cartButtonElement = self._find_element(self.__cartButtonLocator)
         self._click_to_element(cartButtonElement)
 
+    def validate_empty_cart_with_products_count(self):
+        cartCounElement = self._find_element(self.__cartCountLocator)
+        if int(self._get_text(cartCounElement)) == 0:
+            logger("INFO", "Your cart is empty.")
+        else:
+            logger("ERROR", "Your cart is not empty.")
+            exit(5)
 
+    def get_cart_count(self):
+        cartCountElement = self._find_element(self.__cartCountLocator)
+        return int(self._get_text(cartCountElement))

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages_.basePage import BasePage
+from common_.utilities_.customLogger import logger
 
 
 class CartPage(BasePage):
@@ -10,7 +11,7 @@ class CartPage(BasePage):
         self.__closeCompareWithSimilarItemsButtonLocator = (By.CLASS_NAME, "a-icon a-icon-close")
         self.__saveForLaterButtonLocator = (By.XPATH, "//input[@value='Save for later'][1]")
         self.__moveToCartButtonLocator = (By.ID, "a-autoid-6")
-        self.__cartCountLocator = (By.ID, "nav-cart-count")
+        self.__cartIsEmptyMessageLocator = (By.CLASS_NAME, "a-spacing-mini a-spacing-top-base")
 
     def delete_first_product_from_cart(self):
         firstProductDeleteButtonElement = self._find_element(self.__firstProductDeleteButtonLocator)
@@ -32,11 +33,11 @@ class CartPage(BasePage):
         moveToCartButtonElement = self._find_element(self.__moveToCartButtonLocator)
         self._click_to_element(moveToCartButtonElement)
 
-    def validate_empty_cart(self):
-        cartCounElement = self._find_element(self.__cartCountLocator)
-        if int(self._get_text(cartCounElement)) == 0:
-            print("Warning! The Cart Is Empty")
+    def delete_all_products_from_cart(self, cartProductsCount):
+        for i in range(cartProductsCount):
+            firstProductDeleteButtonElement = self._find_element(self.__firstProductDeleteButtonLocator)
+            self._click_to_element(firstProductDeleteButtonElement)
 
-    def get_cart_count(self):
-        cartCountElement = self._find_element(self.__cartCountLocator)
-        return int(self._get_text(cartCountElement))
+    def validate_empty_cart_with_message(self):
+        cartIsEmptyMessageElement = self._find_element(self.__cartIsEmptyMessageLocator)
+        return self._get_text(cartIsEmptyMessageElement)
