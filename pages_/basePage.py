@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage():
@@ -28,3 +29,8 @@ class BasePage():
 
     def _get_text(self, webElement):
         return webElement.text
+
+    def _mouse_move(self, element):
+        action = ActionChains(self.driver)
+        action.move_to_element(element)
+        # action.perform()

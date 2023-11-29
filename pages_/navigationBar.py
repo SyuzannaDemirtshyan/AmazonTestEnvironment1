@@ -10,6 +10,8 @@ class NavigationBar(BasePage):
         self.__searchButtonLocator = (By.ID, "nav-search-submit-button")
         self.__cartButtonLocator = (By.ID, "nav-cart-text-container")
         self.__cartCountLocator = (By.ID, "nav-cart-count")
+        self.__accountAndListsContainerLocator = (By.ID, "nav-link-accountList")
+        self.__signOutButtonLocator = (By.ID, "nav-item-signout")
 
     def fill_search_field(self, text):
         searchFieldElement = self._find_element(self.__searchFieldLocator)
@@ -34,3 +36,11 @@ class NavigationBar(BasePage):
     def get_cart_count(self):
         cartCountElement = self._find_element(self.__cartCountLocator)
         return int(self._get_text(cartCountElement))
+
+    def move_mouse_to_account_and_lists_container(self):
+        accountAndListsContainerElement = self._find_element(self.__accountAndListsContainerLocator)
+        self._mouse_move(accountAndListsContainerElement)
+
+    def click_on_sign_out_button(self):
+        signOutButtonElement = self._find_element(self.__signOutButtonLocator)
+        self._click_to_element(signOutButtonElement)
